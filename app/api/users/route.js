@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
+import * as bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 
@@ -8,8 +9,10 @@ export async function GET() {
     select: {
       id: true,
       nama: true,
+      username: true,
       divisi: true,
-      email: true,
+      password: true,
+      role: true,
     },
   })
 
@@ -22,9 +25,10 @@ export async function POST(request) {
   const user = await prisma.users.create({
     data: {
       nama: body.nama,
-      email: body.email,
+      username: body.username,
       divisi: body.divisi,
-      password: body.password,
+      password: await bcrypt.hash(body.password, 10),
+      role: body.role,
     },
   })
 

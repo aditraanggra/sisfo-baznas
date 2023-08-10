@@ -14,23 +14,26 @@ const userTable = () => {
       .then((data) => setDataUsers(data))
   }, [])
 
-
   const columns = [
-    {
-      Header: 'Id',
-      accessor: 'id',
-    },
     {
       Header: 'Nama',
       accessor: 'nama',
+    },
+    {
+      Header: 'Username',
+      accessor: 'username',
     },
     {
       Header: 'Divisi',
       accessor: 'divisi',
     },
     {
-      Header: 'Email',
-      accessor: 'email',
+      Header: 'Password',
+      accessor: 'password',
+    },
+    {
+      Header: 'Role',
+      accessor: 'role',
     },
     {
       Header: 'action',
@@ -73,8 +76,7 @@ const userTable = () => {
         )
       },
     },
-  ] 
-
+  ]
 
   return (
     <>

@@ -10,6 +10,7 @@ import Button from '@/components/ui/Button'
 import axios from 'axios'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+//import bcrypt from 'bcrypt'
 
 const divisi = [
   { value: 'umum', label: 'Umum' },
@@ -18,6 +19,13 @@ const divisi = [
   { value: 'penghimpunan', label: 'Penghimpunan' },
   { value: 'pendayagunaan', label: 'Pendayagunaan' },
   { value: 'keuangan', label: 'PKP' },
+]
+
+const userRole = [
+  { value: 'sysadmin', label: 'System Administrator' },
+  { value: 'operator', label: 'Operator' },
+  { value: 'approval', label: 'Approval' },
+  { value: 'pimpinan', label: 'Pimpinan' },
 ]
 
 const styles = {
@@ -31,27 +39,36 @@ const addUserForm = () => {
   const route = useRouter()
 
   const [nama, setNama] = useState('')
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [division, setDivision] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState('')
+
+  //const hashedPassword = bcrypt.hash(password, 10)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     await axios.post('http://localhost:3000/api/users', {
       nama: nama,
-      email: email,
+      username: username,
       divisi: division,
       password: password,
+      role: role,
     })
     setNama('')
-    setEmail('')
+    setUsername('')
     setDivision('')
     setPassword('')
+    setRole('')
     route.push('/user')
   }
 
   const handleSelect = (select) => {
     setDivision(select.value)
+  }
+
+  const handleSelectRole = (select) => {
+    setRole(select.value)
   }
 
   return (
@@ -70,15 +87,15 @@ const addUserForm = () => {
             value={nama}
           />
           <InputGroup
-            label='Email'
+            label='Username'
             id='hi_email'
-            type='email'
-            placeholder='Type your email'
-            prepend={<Icon icon='heroicons-outline:mail' />}
+            type='text'
+            placeholder='Type your username'
+            prepend={<Icon icon='heroicons-outline:user' />}
             horizontal
             merged
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
           />
           <div className='flex flex-row items-center justify-between'>
             <span className=' md:w-[100px] w-[60px] font-inter text-sm font-medium mr-6'>
@@ -108,6 +125,23 @@ const addUserForm = () => {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
+          <div className='flex flex-row items-center justify-between'>
+            <span className=' md:w-[100px] w-[60px] font-inter text-sm font-medium mr-6'>
+              Role
+            </span>
+            <div className=' flex-auto'>
+              <Select
+                className='react-select'
+                classNamePrefix='select'
+                styles={styles}
+                name='clear'
+                options={userRole}
+                isClearable
+                id='hh2'
+                onChange={handleSelectRole}
+              />
+            </div>
+          </div>
           <div className='ml-[124px] space-y-4'>
             <Button
               text='Tambah User'
