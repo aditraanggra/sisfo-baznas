@@ -26,23 +26,40 @@ export const menuItems = [
   },
   {
     isHeadr: true,
-    title: 'pendistribusian',
+    title: 'Entry Data',
   },
   {
-    title: 'Entry Data',
-    icon: 'heroicons-outline:lifebuoy',
-    link: '#',
+    title: 'Data Pendistribusian',
     isHide: true,
-    child: [
-      {
-        childtitle: 'Data Pendistribusian',
-        childlink: 'entry-pendis',
-      },
-      {
-        childtitle: 'Data Mustahik',
-        childlink: 'entry-mustahik',
-      },
-    ],
+    icon: 'heroicons-outline:circle-stack',
+    link: 'entry-pendis',
+  },
+
+  {
+    title: 'Data Mustahik',
+    isHide: true,
+    icon: 'heroicons-outline:circle-stack',
+    link: 'entry-mustahik',
+  },
+  {
+    isHeadr: true,
+    title: 'Utility',
+  },
+  {
+    title: 'Laporan Kinerja',
+    isHide: true,
+    icon: 'heroicons-outline:document-chart-bar',
+    link: 'pendis-laporan-kinerja',
+  },
+  {
+    isHeadr: true,
+    title: 'administrator',
+  },
+  {
+    title: 'Data User',
+    isHide: true,
+    icon: 'heroicons-outline:user',
+    link: 'user',
   },
   {
     isHeadr: true,

@@ -10,18 +10,18 @@ const initialUsers = () => {
       : [
           {
             id: uuidv4(),
-            name: 'dashcode',
-            email: 'dashcode@gmail.com',
-            password: 'dashcode',
+            name: 'sa1',
+            email: 'aditra.anggra@gmail.com',
+            password: 'a4n17g6g6r12a4',
           },
         ]
   }
   return [
     {
       id: uuidv4(),
-      name: 'dashcode',
-      email: 'dashcode@gmail.com',
-      password: 'dashcode',
+      name: 'sa1',
+      email: 'aditra.anggra@gmail.com',
+      password: 'a4n17g6g6r12a4',
     },
   ]
 }
