@@ -4,18 +4,24 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useRouter } from 'next/navigation'
-import Checkbox from '@/components/ui/Checkbox'
 import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
 import { handleLogin } from './store'
 import { toast } from 'react-toastify'
+import { signIn } from 'next-auth/react'
+
 const schema = yup
   .object({
-    email: yup.string().email('Invalid email').required('Email is Required'),
+    username: yup.string().required('Username is Required'),
     password: yup.string().required('Password is Required'),
   })
   .required()
+
 const LoginForm = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
   const dispatch = useDispatch()
   const { users } = useSelector((state) => state.auth)
   const {
@@ -28,9 +34,22 @@ const LoginForm = () => {
     mode: 'all',
   })
   const router = useRouter()
-  const onSubmit = (data) => {
-    const user = users.find(
-      (user) => user.email === data.email && user.password === data.password
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const res = await signIn('credentials', {
+      username,
+      password,
+      redirect: false,
+    })
+    if (res?.error) {
+      setError(res.error)
+    } else {
+      router.push('/banking')
+    }
+    /* const user = users.find(
+      (user) =>
+        user.username === data.username && user.password === data.password
     )
     if (user) {
       dispatch(handleLogin(true))
@@ -48,45 +67,43 @@ const LoginForm = () => {
         progress: undefined,
         theme: 'light',
       })
-    }
+    } */
   }
 
-  const [checked, setChecked] = useState(false)
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 '>
-      <Textinput
-        name='email'
-        label='email'
-        defaultValue='aditra.anggra@gmail.com'
-        type='email'
-        register={register}
-        error={errors?.email}
-      />
-      <Textinput
-        name='password'
-        label='password'
-        type='password'
-        defaultValue='a4n17g6g6r12a4'
-        register={register}
-        error={errors.password}
-      />
-      <div className='flex justify-between'>
-        <Checkbox
-          value={checked}
-          onChange={() => setChecked(!checked)}
-          label='Keep me signed in'
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 '>
+        {!!error && <p>{error}</p>}
+        <Textinput
+          name='username'
+          label='Username'
+          type='text'
+          register={register}
+          error={errors?.username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <Link
-          href='/forgot-password'
-          className='text-sm text-slate-800 dark:text-slate-400 leading-6 font-medium'
-        >
-          Lupa Password?{' '}
-        </Link>
-      </div>
+        <Textinput
+          name='password'
+          label='password'
+          type='password'
+          register={register}
+          error={errors.password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div className='flex justify-between'>
+          <Link
+            href='/forgot-password'
+            className='text-sm text-slate-800 dark:text-slate-400 leading-6 font-medium'
+          >
+            Lupa Password?{' '}
+          </Link>
+        </div>
 
-      <button className='btn btn-dark block w-full text-center'>Sign in</button>
-    </form>
+        <button className='btn btn-dark block w-full text-center'>
+          Sign in
+        </button>
+      </form>
+    </>
   )
 }
 

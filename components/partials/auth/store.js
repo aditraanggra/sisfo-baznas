@@ -11,7 +11,7 @@ const initialUsers = () => {
           {
             id: uuidv4(),
             name: 'sa1',
-            email: 'aditra.anggra@gmail.com',
+            username: 'sa01',
             password: 'a4n17g6g6r12a4',
           },
         ]
@@ -20,7 +20,7 @@ const initialUsers = () => {
     {
       id: uuidv4(),
       name: 'sa1',
-      email: 'aditra.anggra@gmail.com',
+      username: 'sa01',
       password: 'a4n17g6g6r12a4',
     },
   ]
@@ -43,8 +43,8 @@ export const authSlice = createSlice({
   },
   reducers: {
     handleRegister: (state, action) => {
-      const { name, email, password } = action.payload
-      const user = state.users.find((user) => user.email === email)
+      const { name, username, password } = action.payload
+      const user = state.users.find((user) => user.username === username)
       if (user) {
         toast.error('User already exists', {
           position: 'top-right',
@@ -60,7 +60,7 @@ export const authSlice = createSlice({
         state.users.push({
           id: uuidv4(),
           name,
-          email,
+          username,
           password,
         })
         if (typeof window !== 'undefined') {
