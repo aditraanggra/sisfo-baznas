@@ -5,12 +5,13 @@ import * as bcrypt from 'bcrypt'
 const prisma = new PrismaClient()
 
 export async function GET() {
-  const users = await prisma.users.findMany({
+  const users = await prisma.user.findMany({
     select: {
-      nama: true,
+      name: true,
       username: true,
-      divisi: true,
       password: true,
+      image: true,
+      divisi: true,
       role: true,
     },
   })
@@ -21,12 +22,13 @@ export async function GET() {
 export async function POST(request) {
   const body = await request.json()
 
-  const user = await prisma.users.create({
+  const user = await prisma.user.create({
     data: {
-      nama: body.nama,
+      name: body.name,
       username: body.username,
-      divisi: body.divisi,
       password: await bcrypt.hash(body.password, 10),
+      image: body.image,
+      divisi: body.divisi,
       role: body.role,
     },
   })

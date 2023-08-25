@@ -3,8 +3,15 @@ import React from 'react'
 import Link from 'next/link'
 import LoginForm from '@/components/partials/auth/login-form'
 import useDarkMode from '@/hooks/useDarkMode'
+import Button from '@/components/ui/Button'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const Login2 = () => {
+  const { status } = useSession()
+
+  const router = useRouter()
+
   const [isDark] = useDarkMode()
   return (
     <>
@@ -33,6 +40,16 @@ const Login2 = () => {
                   </div>
                 </div>
                 <LoginForm />
+                {/* <Button text='Credentials Login' onClick={() => signIn()} />
+                {status === 'authenticated' ? (
+                  <Button
+                    text='Masuk ke Dashboard'
+                    className=' bg-green-700 text-white mt-4'
+                    onClick={() => router.push('/banking')}
+                  />
+                ) : (
+                  router.push('/')
+                )} */}
               </div>
               <div className='auth-footer text-center'>
                 Copyright 2023, BAZNAS Kabupaten Cianjur.

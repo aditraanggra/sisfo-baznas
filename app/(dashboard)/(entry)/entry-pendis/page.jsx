@@ -7,21 +7,18 @@ import DataTable from '@/components/partials/table/DataTable'
 
 function formatDate(date) {
   var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear()
 
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
 
-  return [year, month, day].join('-');
+  return [year, month, day].join('-')
 }
 
 const entryPendis = () => {
   const [dataPendis, setDataPendis] = useState([])
-
 
   useEffect(() => {
     fetch('http://localhost:3000/api/pendis')
@@ -96,7 +93,7 @@ const entryPendis = () => {
                 : ''
             }
             ${
-              row?.cell?.value === 'Disetujui'
+              row?.cell?.value === 'Selesai'
                 ? 'text-success-500 bg-success-500 font-medium'
                 : ''
             }
@@ -111,42 +108,28 @@ const entryPendis = () => {
     },
     {
       Header: 'no register',
-      accessor: 'noRegister',
+      accessor: 'no_register',
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>
       },
     },
     {
       Header: 'tanggal register',
-      accessor: 'tglRegister',
+      accessor: 'tgl_Register',
       Cell: (row) => {
-        return <span>{row?.cell?.value}</span>
+        return <span>{formatDate(row?.cell?.value)}</span>
       },
     },
     {
       Header: 'nama pemohon',
-      accessor: 'pemohon',
+      accessor: 'nama_pemohon',
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>
       },
     },
     {
-      Header: 'penerima manfaat',
-      accessor: 'penerima',
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>
-      },
-    },
-    {
-      Header: 'nik',
-      accessor: 'nik',
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>
-      },
-    },
-    {
-      Header: 'alamat',
-      accessor: 'alamat',
+      Header: 'alamat pemohon',
+      accessor: 'alamat_pemohon',
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>
       },
@@ -166,13 +149,6 @@ const entryPendis = () => {
       },
     },
     {
-      Header: 'program',
-      accessor: 'program',
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>
-      },
-    },
-    {
       Header: 'asnaf',
       accessor: 'asnaf',
       Cell: (row) => {
@@ -180,29 +156,50 @@ const entryPendis = () => {
       },
     },
     {
+      Header: 'program',
+      accessor: 'program',
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>
+      },
+    },
+    {
+      Header: 'Jml Penerima Manfaat',
+      accessor: 'jml_penerima_manfaat',
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>
+      },
+    },
+    {
       Header: 'besar permohonan',
-      accessor: 'besarPermohonan',
+      accessor: 'besar_permohonan',
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>
       },
     },
     {
       Header: 'besar realisasi',
-      accessor: 'besarRealisasi',
+      accessor: 'besar_realisasi',
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>
       },
     },
     {
       Header: 'tanggal realisasi',
-      accessor: 'tglRealisasi',
+      accessor: 'tgl_realisasi',
+      Cell: (row) => {
+        return <span>{formatDate(row?.cell?.value)}</span>
+      },
+    },
+    {
+      Header: 'disposisi',
+      accessor: 'ket_disposisi',
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>
       },
     },
     {
-      Header: 'upload berkas',
-      accessor: 'upload',
+      Header: 'upload',
+      accessor: 'uploadData ',
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>
       },

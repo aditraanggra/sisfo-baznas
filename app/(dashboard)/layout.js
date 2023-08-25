@@ -25,7 +25,10 @@ import Loading from '@/components/Loading'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import useNavbarType from '@/hooks/useNavbarType'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useSession } from 'next-auth/react'
 export default function RootLayout({ children }) {
+  const { data: session, status } = useSession()
+
   const { width, breakpoints } = useWidth()
   const [collapsed] = useSidebar()
   const [isRtl] = useRtl()
@@ -34,14 +37,14 @@ export default function RootLayout({ children }) {
   const [navbarType] = useNavbarType()
   const [isMonoChrome] = useMonoChrome()
   const router = useRouter()
-  const { isAuth } = useSelector((state) => state.auth)
+  // const { isAuth } = useSelector((state) => state.auth)
 
   useEffect(() => {
-    if (!isAuth) {
+    if (status === 'unauthenticated') {
       router.push('/')
     }
     //darkMode;
-  }, [isAuth])
+  })
   const location = usePathname()
   // header switch class
   const switchHeaderClass = () => {

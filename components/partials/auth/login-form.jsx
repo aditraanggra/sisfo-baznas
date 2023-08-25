@@ -5,8 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useSelector, useDispatch } from 'react-redux'
-import { handleLogin } from './store'
+// import { useSelector, useDispatch } from 'react-redux'
+// import { handleLogin } from './store'
 import { toast } from 'react-toastify'
 import { signIn } from 'next-auth/react'
 
@@ -22,12 +22,12 @@ const LoginForm = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const dispatch = useDispatch()
-  const { users } = useSelector((state) => state.auth)
+  // const dispatch = useDispatch()
+  // const { users } = useSelector((state) => state.auth)
   const {
     register,
     formState: { errors },
-    handleSubmit,
+    // handleSubmit,
   } = useForm({
     resolver: yupResolver(schema),
     //
@@ -46,6 +46,16 @@ const LoginForm = () => {
       setError(res.error)
     } else {
       router.push('/banking')
+      toast.success('User logged in successfully', {
+        position: 'top-right',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      })
     }
     /* const user = users.find(
       (user) =>
@@ -72,8 +82,8 @@ const LoginForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 '>
-        {!!error && <p>{error}</p>}
+      <form onSubmit={onSubmit} className='space-y-4 '>
+        {!!error && <p className=' text-red-500 font-inter text-sm'>{error}</p>}
         <Textinput
           name='username'
           label='Username'
@@ -81,6 +91,7 @@ const LoginForm = () => {
           register={register}
           error={errors?.username}
           onChange={(e) => setUsername(e.target.value)}
+          placeholder='Masukan Username...'
         />
         <Textinput
           name='password'
@@ -89,6 +100,7 @@ const LoginForm = () => {
           register={register}
           error={errors.password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder='Masukan Password...'
         />
         <div className='flex justify-between'>
           <Link
@@ -99,7 +111,7 @@ const LoginForm = () => {
           </Link>
         </div>
 
-        <button className='btn btn-dark block w-full text-center'>
+        <button className='btn btn-primary block w-full text-center'>
           Sign in
         </button>
       </form>

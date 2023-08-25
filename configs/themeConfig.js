@@ -1,18 +1,18 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid'
 const themeConfig = {
   app: {
-    name: "Dashcode React",
+    name: 'SISFO ZIS',
   },
   // layout
   layout: {
     isRTL: false,
     darkMode: false,
     semiDarkMode: false,
-    skin: "default",
-    contentWidth: "full",
-    type: "vertical",
-    navBarType: "sticky",
-    footerType: "static",
+    skin: 'default',
+    contentWidth: 'full',
+    type: 'vertical',
+    navBarType: 'sticky',
+    footerType: 'static',
     isMonochrome: false,
     menu: {
       isCollapsed: false,
@@ -21,6 +21,6 @@ const themeConfig = {
     mobileMenu: false,
     customizer: false,
   },
-};
+}
 
-export default themeConfig;
+export default themeConfig

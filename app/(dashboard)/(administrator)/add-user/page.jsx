@@ -38,9 +38,10 @@ const styles = {
 const addUserForm = () => {
   const route = useRouter()
 
-  const [nama, setNama] = useState('')
+  const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [division, setDivision] = useState('')
+  const [image, setImage] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('')
 
@@ -49,13 +50,13 @@ const addUserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await axios.post('http://localhost:3000/api/users', {
-      nama: nama,
+      name: name,
       username: username,
       divisi: division,
       password: password,
       role: role,
     })
-    setNama('')
+    setName('')
     setUsername('')
     setDivision('')
     setPassword('')
@@ -83,8 +84,8 @@ const addUserForm = () => {
             horizontal
             prepend={<Icon icon='heroicons-outline:user' />}
             merged
-            onChange={(e) => setNama(e.target.value)}
-            value={nama}
+            onChange={(e) => setName(e.target.value)}
+            value={name}
           />
           <InputGroup
             label='Username'
@@ -114,6 +115,17 @@ const addUserForm = () => {
               />
             </div>
           </div>
+          <InputGroup
+            label='Image URL'
+            id='hi_email'
+            type='text'
+            placeholder='Put Image URL'
+            prepend={<Icon icon='heroicons-outline:photo' />}
+            horizontal
+            merged
+            onChange={(e) => setImage(e.target.value)}
+            value={image}
+          />
           <InputGroup
             label='Password'
             id='hi_password'

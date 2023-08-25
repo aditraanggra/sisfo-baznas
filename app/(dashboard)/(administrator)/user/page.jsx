@@ -17,7 +17,7 @@ const userTable = () => {
   const columns = [
     {
       Header: 'Nama',
-      accessor: 'nama',
+      accessor: 'name',
     },
     {
       Header: 'Username',
@@ -26,10 +26,6 @@ const userTable = () => {
     {
       Header: 'Divisi',
       accessor: 'divisi',
-    },
-    {
-      Header: 'Password',
-      accessor: 'password',
     },
     {
       Header: 'Role',
